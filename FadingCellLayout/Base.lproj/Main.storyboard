@@ -41,7 +41,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GeF-gu-Pxe">
-                                                    <rect key="frame" x="38" y="8" width="300" height="62"/>
+                                                    <rect key="frame" x="77" y="8" width="222" height="62"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Mlg_Doge" translatesAutoresizingMaskIntoConstraints="NO" id="8hf-cN-jc2">
                                                             <rect key="frame" x="0.0" y="0.0" width="62" height="62"/>
@@ -51,7 +51,7 @@
                                                             </constraints>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Doge The Boss" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gF9-uF-aTo">
-                                                            <rect key="frame" x="72" y="0.0" width="228" height="62"/>
+                                                            <rect key="frame" x="72" y="0.0" width="150" height="62"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -74,7 +74,6 @@
                                             <constraint firstItem="GeF-gu-Pxe" firstAttribute="centerY" secondItem="dIY-ke-Sie" secondAttribute="centerY" id="72V-e4-b7M"/>
                                             <constraint firstItem="GeF-gu-Pxe" firstAttribute="centerX" secondItem="dIY-ke-Sie" secondAttribute="centerX" id="H8A-cn-8l1"/>
                                             <constraint firstItem="GeF-gu-Pxe" firstAttribute="height" secondItem="dIY-ke-Sie" secondAttribute="height" multiplier="0.8" id="Xht-BT-KEh"/>
-                                            <constraint firstItem="GeF-gu-Pxe" firstAttribute="width" secondItem="dIY-ke-Sie" secondAttribute="width" multiplier="0.8" id="mpn-Op-fo2"/>
                                         </constraints>
                                         <connections>
                                             <outlet property="imageView" destination="8hf-cN-jc2" id="yWQ-13-Q4Q"/>
@@ -106,7 +105,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="xXg-K4-PAE" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Cfo-IG-ILy">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Cfo-IG-ILy">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.15585204470924774" green="0.38892710848878642" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

@@ -56,7 +56,6 @@ class FadingZoomLayout: UICollectionViewFlowLayout,UICollectionViewDelegateFlowL
                 let distance = visibleRect.midY - attrs.center.y
                 let normalizedDistance = abs(distance) / (visibleRect.height * scaleFactor)
                 let zoom = 1 - normalizedDistance
-                
                 attrs.zIndex = 1
                 attrs.transform3D = CATransform3DMakeScale(zoom, zoom, 1.0)
                 attrs.alpha = zoom
