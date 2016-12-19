@@ -18,9 +18,15 @@ class PlainCollectionViewCell: UICollectionViewCell {
         
     }
     
+    func configureView(){
+        layoutIfNeeded()
+        layoutSubviews()
+    }
     override func layoutSubviews() {
         super.layoutSubviews()
         imageView.layer.cornerRadius = imageView.frame.width/2
     }
+    
+    
     
 }

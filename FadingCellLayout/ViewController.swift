@@ -19,6 +19,17 @@ class ViewController: UIViewController,UICollectionViewDelegate,UICollectionView
         collectionView.dataSource = self
         self.collectionView.setCollectionViewLayout(layout, animated: false)
         
+        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.white]
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        //just to track the center of the view
+//        let vw = UIView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 1))
+//        vw.backgroundColor = UIColor(red: 40/255.0, green: 99/255.0, blue: 255.0, alpha: 1)
+//        vw.center = self.collectionView.center
+//        self.view.addSubview(vw)
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -31,8 +42,7 @@ class ViewController: UIViewController,UICollectionViewDelegate,UICollectionView
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "plainCell", for: indexPath) as! PlainCollectionViewCell
-        cell.layoutIfNeeded()
-        cell.layoutSubviews()
+        cell.configureView()
         return cell
     }
 

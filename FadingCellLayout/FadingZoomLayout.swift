@@ -31,9 +31,11 @@ class FadingZoomLayout: UICollectionViewFlowLayout,UICollectionViewDelegateFlowL
     func setupLayout() {
         self.itemSize = CGSize(width: self.collectionView!.bounds.size.width,height:cellHeight)
         self.minimumLineSpacing = 0
-        self.collectionView!.decelerationRate = UIScrollViewDecelerationRateFast
-        super.prepare()
-        
+        // this should never happen but i don't trust Swift :)
+        if collectionView != nil{
+            self.collectionView!.decelerationRate = UIScrollViewDecelerationRateFast
+            self.sectionInset = UIEdgeInsetsMake(self.collectionView!.frame.size.height/2 - cellHeight/2, 0, self.collectionView!.frame.size.height/2 - cellHeight/2, 0)
+        }
     }
     
     override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
@@ -46,27 +48,43 @@ class FadingZoomLayout: UICollectionViewFlowLayout,UICollectionViewDelegateFlowL
     
     override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         let attributesSuper: [UICollectionViewLayoutAttributes] = super.layoutAttributesForElements(in: rect) as [UICollectionViewLayoutAttributes]!
-        let attributes = NSArray(array: attributesSuper, copyItems: true) as! [UICollectionViewLayoutAttributes] as [UICollectionViewLayoutAttributes]!
-        
-        var visibleRect = CGRect()
-        visibleRect.origin = collectionView!.contentOffset
-        visibleRect.size = collectionView!.bounds.size
-        for attrs in attributes! {
-            if attrs.frame.intersects(rect) {
-                let distance = visibleRect.midY - attrs.center.y
-                let normalizedDistance = abs(distance) / (visibleRect.height * scaleFactor)
-                let zoom = 1 - normalizedDistance
-                attrs.zIndex = 1
-                attrs.transform3D = CATransform3DMakeScale(zoom, zoom, 1.0)
-                attrs.alpha = zoom
+        if let attributes = NSArray(array: attributesSuper, copyItems: true) as? [UICollectionViewLayoutAttributes]{
+            var visibleRect = CGRect()
+            visibleRect.origin = collectionView!.contentOffset
+            visibleRect.size = collectionView!.bounds.size
+            for attrs in attributes {
+                if attrs.frame.intersects(rect) {
+                    let distance = visibleRect.midY - attrs.center.y
+                    let normalizedDistance = abs(distance) / (visibleRect.height * scaleFactor)
+                    let zoom = 1 - normalizedDistance
+                    attrs.zIndex = 1
+                    attrs.transform3D = CATransform3DMakeScale(zoom, zoom, 1.0)
+                    attrs.alpha = zoom
+                }
             }
+            return attributes
+        }else{
+            return nil
         }
+    }
+    
+    override func initialLayoutAttributesForAppearingItem(at itemIndexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
+        let attributes = super.layoutAttributesForItem(at: itemIndexPath)! as UICollectionViewLayoutAttributes
+        attributes.alpha = 0
+        attributes.transform3D = CATransform3DMakeScale(0, 0, 1.0)
+        return attributes
+    }
+    
+    override func finalLayoutAttributesForDisappearingItem(at itemIndexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
+        let attributes = super.layoutAttributesForItem(at: itemIndexPath)! as UICollectionViewLayoutAttributes
+        attributes.alpha = 0
+        attributes.transform3D = CATransform3DMakeScale(0, 0, 1.0)
         return attributes
     }
     
     override func targetContentOffset(forProposedContentOffset proposedContentOffset: CGPoint, withScrollingVelocity velocity: CGPoint) -> CGPoint {
         var offsetAdjustment = CGFloat.greatestFiniteMagnitude
-        let horizontalCenter = proposedContentOffset.y + (self.collectionView!.bounds.height / 2.0)
+        let horizontalCenter = proposedContentOffset.y  + (self.collectionView!.frame.height / 2.0)
         let targetRect = CGRect(x:proposedContentOffset.x, y: proposedContentOffset.y, width: self.collectionView!.bounds.size.width, height: self.collectionView!.bounds.size.height)
       
         let array = super.layoutAttributesForElements(in: targetRect) as [UICollectionViewLayoutAttributes]!
